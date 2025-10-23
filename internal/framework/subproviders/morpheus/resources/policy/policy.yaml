@@ -1,0 +1,647 @@
+name: policy
+schema:
+  attributes:
+  - name: accounts
+    set:
+      computed_optional_required: computed_optional
+      element_type:
+        int64: {}
+      description: Array of tenants to scope the policy to
+  - name: config
+    single_nested:
+      computed_optional_required: required
+      attributes:
+      - name: approve_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: account_integration_id
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Approve Delete\n- Approve Provisiong\n- Approve Reconfigure\n"
+      - name: backup_creation_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: create_backup
+            bool:
+              computed_optional_required: computed_optional
+          - name: create_backup_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Backup Creation\n"
+      - name: backup_targets_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: backup_storage_ids
+            set:
+              computed_optional_required: computed_optional
+              element_type:
+                int64: {}
+          description: "Configuration settings for the following policy types:\n- Backup Targets\n"
+      - name: budget_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_price
+            number:
+              computed_optional_required: computed_optional
+          - name: max_price_currency
+            string:
+              computed_optional_required: computed_optional
+          - name: max_price_unit
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Budget\n"
+      - name: cluster_resource_name_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: server_naming_conflict
+            bool:
+              computed_optional_required: computed_optional
+          - name: server_naming_pattern
+            string:
+              computed_optional_required: computed_optional
+          - name: server_naming_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Cluster Resource Name\n"
+      - name: cypher_access_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: delete
+            bool:
+              computed_optional_required: computed_optional
+          - name: key_pattern
+            string:
+              computed_optional_required: computed_optional
+          - name: list
+            bool:
+              computed_optional_required: computed_optional
+          - name: read
+            bool:
+              computed_optional_required: computed_optional
+          - name: update
+            bool:
+              computed_optional_required: computed_optional
+          - name: write
+            bool:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Cypher Access\n"
+      - name: delayed_delete_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: removal_age
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Delayed Delete\n"
+      - name: expiration_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: account_integration_id
+            string:
+              computed_optional_required: computed_optional
+          - name: lifecycle_age
+            string:
+              computed_optional_required: computed_optional
+          - name: lifecycle_allow_extend
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: lifecycle_auto_renew
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: lifecycle_extensions_before_approval
+            string:
+              computed_optional_required: computed_optional
+          - name: lifecycle_hide_fixed
+            bool:
+              computed_optional_required: computed_optional
+          - name: lifecycle_message
+            string:
+              computed_optional_required: computed_optional
+          - name: lifecycle_notify
+            string:
+              computed_optional_required: computed_optional
+          - name: lifecycle_renewal
+            string:
+              computed_optional_required: computed_optional
+          - name: lifecycle_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Expiration\n"
+      - name: file_share_storage_quota_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_storage
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- File Share Storage Quota\n"
+      - name: hostname_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: host_naming_pattern
+            string:
+              computed_optional_required: computed_optional
+          - name: host_naming_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Hostname\n"
+      - name: instance_name_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: naming_conflict
+            bool:
+              computed_optional_required: computed_optional
+          - name: naming_pattern
+            string:
+              computed_optional_required: computed_optional
+          - name: naming_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Instance Name\n"
+      - name: max_containers_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_containers
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Containers\n"
+      - name: max_cores_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: exclude_containers
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: max_cores
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Cores\n"
+      - name: max_hosts_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_hosts
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Hosts\n"
+      - name: max_load_balancer_pools_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_pools
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Load Balancer Pools\n"
+      - name: max_memory_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: exclude_containers
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: max_memory
+            single_nested:
+              computed_optional_required: required
+              attributes:
+              - name: anyof0
+                string:
+                  computed_optional_required: computed_optional
+              - name: anyof1
+                int64:
+                  computed_optional_required: computed_optional
+              description: Max Memory (GB)
+          description: "Configuration settings for the following policy types:\n- Max Memory\n"
+      - name: max_pool_members_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_pool_members
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Pool Members\n"
+      - name: max_storageand_object_storage_quota_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: exclude_containers
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: max_storage
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Storage\n- Object Storage Quota\n"
+      - name: max_virtual_servers_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_virtual_servers
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max Virtual Servers\n"
+      - name: max_vms_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_vms
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Max VMs\n"
+      - name: messageofthe_day_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: motd
+            single_nested:
+              computed_optional_required: computed_optional
+              attributes:
+              - name: _full_page
+                bool:
+                  computed_optional_required: computed_optional
+              - name: message
+                string:
+                  computed_optional_required: computed_optional
+              - name: title
+                string:
+                  computed_optional_required: computed_optional
+              - name: type
+                string:
+                  computed_optional_required: computed_optional
+          - name: motd_full_page
+            bool:
+              computed_optional_required: computed_optional
+          - name: motddate
+            string:
+              computed_optional_required: computed_optional
+          - name: motdmessage
+            string:
+              computed_optional_required: computed_optional
+          - name: motdtitle
+            string:
+              computed_optional_required: computed_optional
+          - name: motdtype
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Message of the Day\n"
+      - name: network_quota_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_networks
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Network Quota\n"
+      - name: power_schedule_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: power_schedule
+            string:
+              computed_optional_required: computed_optional
+          - name: power_schedule_hide_fixed
+            bool:
+              computed_optional_required: computed_optional
+          - name: power_schedule_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Power Schedule\n"
+      - name: router_quota_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_routers
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Router Quota\n"
+      - name: shutdown_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: account_integration_id
+            string:
+              computed_optional_required: computed_optional
+          - name: shutdown_age
+            string:
+              computed_optional_required: computed_optional
+          - name: shutdown_allow_extend
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: shutdown_auto_renew
+            string:
+              computed_optional_required: computed_optional
+              default:
+                static: "off"
+              validators:
+              - custom:
+                  imports:
+                  - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+                  schema_definition: |-
+                    stringvalidator.OneOf(
+                    "on",
+                    "off",
+                    )
+          - name: shutdown_extensions_before_approval
+            string:
+              computed_optional_required: computed_optional
+          - name: shutdown_hide_fixed
+            bool:
+              computed_optional_required: computed_optional
+          - name: shutdown_message
+            string:
+              computed_optional_required: computed_optional
+          - name: shutdown_notify
+            string:
+              computed_optional_required: computed_optional
+          - name: shutdown_renewal
+            string:
+              computed_optional_required: computed_optional
+          - name: shutdown_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Shutdown\n"
+      - name: storage_server_storage_quota_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: max_storage
+            string:
+              computed_optional_required: computed_optional
+          - name: storage_server_id
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Storage Server Storage Quota\n"
+      - name: tags_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: key
+            string:
+              computed_optional_required: computed_optional
+          - name: strict
+            bool:
+              computed_optional_required: computed_optional
+          - name: value
+            string:
+              computed_optional_required: computed_optional
+          - name: value_list_id
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Tags\n"
+      - name: user_creation_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: create_user
+            bool:
+              computed_optional_required: computed_optional
+          - name: create_user_type
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- User Creation\n"
+      - name: user_group_creation_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: user_group
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- User Group Creation\n"
+      - name: workflow_policy_type_configuration
+        single_nested:
+          computed_optional_required: computed_optional
+          attributes:
+          - name: workflow_id
+            string:
+              computed_optional_required: computed_optional
+          description: "Configuration settings for the following policy types:\n- Workflow\n"
+      description: A map of config values. The expected values vary by policy type. See `Retrieves all Policy Types` endpoint for `fieldName`(s) of required options.
+  - name: description
+    string:
+      computed_optional_required: computed_optional
+      description: A description for the policy
+  - name: each_user
+    bool:
+      computed_optional_required: computed_optional
+      description: Apply individually to each user in role.  Only when `refType` equals `Role`
+  - name: enabled
+    bool:
+      computed_optional_required: computed_optional
+      default:
+        static: true
+      description: Set to false to disable
+  - name: id
+    int64:
+      computed_optional_required: computed
+  - name: name
+    string:
+      computed_optional_required: required
+      description: A name for the policy
+  - name: owner
+    single_nested:
+      computed_optional_required: computed
+      attributes:
+      - name: id
+        int64:
+          computed_optional_required: computed
+      - name: name
+        string:
+          computed_optional_required: computed
+  - name: policy_type
+    single_nested:
+      computed_optional_required: computed
+      attributes:
+      - name: code
+        string:
+          computed_optional_required: computed
+          description: The policy type code. See `Retrieves all Policy Types` endpoint for listing.
+          validators:
+          - custom:
+              imports:
+              - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+              schema_definition: |-
+                stringvalidator.OneOf(
+                "deleteApproval",
+                "provisionApproval",
+                "reconfigureApproval",
+                "workflowApproval",
+                "createBackup",
+                "backupStorage",
+                "maxPrice",
+                "serverNaming",
+                "cypher",
+                "delayedRemoval",
+                "lifecycle",
+                "storageShareQuota",
+                "hostNaming",
+                "naming",
+                "maxContainers",
+                "maxCores",
+                "maxHosts",
+                "maxPools",
+                "maxMemory",
+                "maxPoolMembers",
+                "maxSnapshots",
+                "maxStorage",
+                "maxVirtualServers",
+                "maxVms",
+                "motd",
+                "maxNetworks",
+                "storageBucketQuota",
+                "powerSchedule",
+                "maxRouters",
+                "shutdown",
+                "storageServerQuota",
+                "tags",
+                "createUser",
+                "createUserGroup",
+                "workflow",
+                )
+      - name: id
+        int64:
+          computed_optional_required: computed
+      - name: name
+        string:
+          computed_optional_required: computed
+  - name: ref_id
+    int64:
+      computed_optional_required: computed_optional
+      description: Scope object ID (`group`,`cloud`,`user`, etc)
+  - name: ref_type
+    single_nested:
+      computed_optional_required: computed_optional
+      attributes:
+      - name: oneof0
+        string:
+          computed_optional_required: computed_optional
+          validators:
+          - custom:
+              imports:
+              - path: github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator
+              schema_definition: |-
+                stringvalidator.OneOf(
+                "ComputeSite",
+                "ComputeZone",
+                "User",
+                "Role",
+                "Network",
+                "Plan",
+                )
+      description: Scope object type.  If none specified, will default to Global (null)
+  - name: role
+    single_nested:
+      computed_optional_required: computed
+      attributes:
+      - name: authority
+        string:
+          computed_optional_required: computed
+      - name: id
+        int64:
+          computed_optional_required: computed
+  - name: site
+    single_nested:
+      computed_optional_required: computed
+      attributes:
+      - name: id
+        int64:
+          computed_optional_required: computed
+      - name: name
+        string:
+          computed_optional_required: computed
+  - name: success
+    bool:
+      computed_optional_required: computed
+  - name: user
+    single_nested:
+      computed_optional_required: computed
+      attributes:
+      - name: id
+        int64:
+          computed_optional_required: computed
+      - name: username
+        string:
+          computed_optional_required: computed
+  - name: zone
+    single_nested:
+      computed_optional_required: computed
+      attributes:
+      - name: id
+        int64:
+          computed_optional_required: computed
+      - name: name
+        string:
+          computed_optional_required: computed
