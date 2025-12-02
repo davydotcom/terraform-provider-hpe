@@ -127,7 +127,7 @@ func (r *Resource) Create(
 	}
 
 	// Read the created policy to get full state
-	state, diags := getPolicyAsState(ctx, id, client, &plan)
+	state, diags := getPolicyAsState(ctx, id, client, plan)
 	if diags.HasError() {
 		resp.Diagnostics.Append(diags...)
 

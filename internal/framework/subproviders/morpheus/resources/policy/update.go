@@ -123,7 +123,7 @@ func (r *Resource) Update(
 	}
 
 	// Read the updated policy to get full state
-	updatedState, diags := getPolicyAsState(ctx, id, client, &plan)
+	updatedState, diags := getPolicyAsState(ctx, id, client, plan)
 	if diags.HasError() {
 		resp.Diagnostics.Append(diags...)
 		resp.Diagnostics.AddError(
