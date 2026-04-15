@@ -16,17 +16,17 @@ lint:
 
 test:
 	env TF_ACC=1 \
-	go test -short -v -cover -count 1 -timeout 10m ./...
+	go test -short -v -cover -timeout 10m ./...
 
 testacc:
 	cd morpheus/framework && \
 	env TF_ACC=1 \
-	go test -v -cover -count 1 -timeout 60m ./...
+	go test -v -cover -timeout 60m ./...
 
 testsdkv2:
 	cd morpheus/sdkv2 && \
 	env TF_ACC=1 \
-	go test -v -cover -count 1 -timeout 60m ./...
+	go test -v -cover -timeout 60m ./...
 
 collect-test-results:
 	./scripts/collect-test-results.bash
